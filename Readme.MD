@@ -38,6 +38,11 @@ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download
 [Checkpoints](https://drive.google.com/file/d/1pBbxUTlmMAlYDkXJ-RYBoeezSNjIsJZG/view?usp=drive_link)
 
 [DWC_v1](https://drive.google.com/file/d/1P6CpwZszTtGOMQx0IaPu1VXR1GeboI7O/view?usp=drive_link)
-## Experiment Reproduction
 
 
+## Experiment Reproduction(Still working in progress)
+
+### Evaluate
+```
+python eval.py --is_local --data_path ./Data/DWC_v1
+```
