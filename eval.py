@@ -19,6 +19,12 @@ torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
 torch.set_default_dtype(torch.float32)
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--data_path', type=str, default=None, required=False)
+parser.add_argument('--is_local', action='store_true', required=False, default=False)
+args = parser.parse_args()
+IS_LOCAL = args.is_local
+
 # If want to use other GPU for evaluation
 # os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 # os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
@@ -31,6 +37,14 @@ else:
 check_point_path = './Checkpoints/ExRAC.pth'
 cfg_path = './Config/vanilla.yaml'
 cfg = load_cfg(cfg_path)
+cfg.Is_local = IS_LOCAL
+if args.data_path is not None:
+    if cfg.Is_local:
+        cfg.DWC.local_data_path = os.path.join(args.data_path, 'real_data')
+        cfg.DWC_syn.local_data_path = os.path.join(args.data_path, 'syn_data')
+    else:
+        cfg.DWC.server_data_path = os.path.join(args.data_path, 'real_data')
+        cfg.DWC_syn.server_data_path = os.path.join(args.data_path, 'syn_data')
 cfg.Pretrain = False
 cfg.Dataset.split_type = 'action_plus'
 train_loader, val_loader, test_loader, _, = build_dataset(cfg)
