@@ -1,0 +1,56 @@
+############################################################
+#                  General setting
+############################################################
+Dataset:
+  name: DWC
+  split_type: action_plus
+
+Feature: ExEnc
+Head: ConvHead
+Is_local: True
+Is_baseline: False
+
+Train:
+  epoch: 30
+  batch_size: 1
+
+Criterion: count
+
+Optimizer:
+  name: adam
+  feature_lr: 1e-4
+  head_lr: 1e-4
+  weight_decay: 1e-5
+  scheduler_gamma: 0.95
+  acc_grad_batch: 1
+############################################################
+#                  Dataset setting
+############################################################
+
+# AudioCARA setting
+DWC:
+  server_data_path: '/data/add_disk1/yifeng/DWC_v1/real_data'
+  local_data_path: 'F:\DWC_v1\real_data'
+  audio_sampling_rate: 16000
+  normalize: True
+  density_map_length: 1400
+  padding: True
+  padding_length: 28000
+
+DWC_syn:
+  server_data_path: '/data/add_disk1/yifeng/DWC_v1/syn_data'
+  local_data_path: 'D:\DWC_v1\syn_data'
+  normalize: True
+  padding: True
+  padding_length: 28000
+############################################################
+#                  Counting head setting
+############################################################
+ConvHead:
+  adapool_size: 128
+
+ExEnc:
+  series_size: 20
+  proj_dim: 256
+
+Seed: 3407
