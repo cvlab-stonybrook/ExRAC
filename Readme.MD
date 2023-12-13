@@ -46,3 +46,5 @@ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download
 ```
 python eval.py --is_local --data_path ./Data/DWC_v1
 ```
+
+### Training
