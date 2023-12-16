@@ -27,14 +27,16 @@ python setup.py build_ext --inplace
 
 ### Download with wget
 ```
+# Checkpoints
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1pBbxUTlmMAlYDkXJ-RYBoeezSNjIsJZG' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1pBbxUTlmMAlYDkXJ-RYBoeezSNjIsJZG" -O Checkpoints.zip && rm -rf /tmp/cookies.txt
 ```
 
 ```
+# DWC_v1
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1P6CpwZszTtGOMQx0IaPu1VXR1GeboI7O' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1P6CpwZszTtGOMQx0IaPu1VXR1GeboI7O" -O DWC_v1.zip && rm -rf /tmp/cookies.txt
 ```
 
-### Download on Google Drive
+### Download from Google Drive
 
 [Checkpoints](https://drive.google.com/file/d/1pBbxUTlmMAlYDkXJ-RYBoeezSNjIsJZG/view?usp=drive_link)
 
