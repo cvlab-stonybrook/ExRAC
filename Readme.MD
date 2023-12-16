@@ -43,6 +43,9 @@ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download
 ## Experiment Reproduction(Still working in progress)
 
 ### Evaluate
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1MYmKte_denL7bBffHE1T8S_NGfINauLG#scrollTo=WLQ5yeSIojfw)
+
 ```
 python eval.py --is_local --data_path ./Data/DWC_v1
 ```
