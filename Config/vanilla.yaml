@@ -30,7 +30,7 @@ Optimizer:
 # AudioCARA setting
 DWC:
   server_data_path: '/data/add_disk1/yifeng/DWC_v1/real_data'
-  local_data_path: './Data/DWC_v1'
+  local_data_path: './Data/DWC_v1/real_data'
   audio_sampling_rate: 16000
   normalize: True
   density_map_length: 1400
@@ -39,7 +39,7 @@ DWC:
 
 DWC_syn:
   server_data_path: '/data/add_disk1/yifeng/DWC_v1/syn_data'
-  local_data_path: './Data/DWC_v1'
+  local_data_path: './Data/DWC_v1/syn_data'
   normalize: True
   padding: True
   padding_length: 28000
