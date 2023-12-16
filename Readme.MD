@@ -1,6 +1,9 @@
 # **[AAAI24] Count What You Want: Exemplar Identification and Few-shot Counting of Human Actions in the Wild**
 
-[Project](https://yifehuang97.github.io/ExRAC.github.io/)
+[Project Page](https://yifehuang97.github.io/ExRAC.github.io/) 
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1MYmKte_denL7bBffHE1T8S_NGfINauLG#scrollTo=WLQ5yeSIojfw)
+
 
 Our work uses audio cues as exemplar to perform few-shot repetitive action counting in the wild on smartwatch data.
 
@@ -43,14 +46,25 @@ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download
 [DWC_v1](https://drive.google.com/file/d/1P6CpwZszTtGOMQx0IaPu1VXR1GeboI7O/view?usp=drive_link)
 
 
-## Experiment Reproduction(Still working in progress)
+## Experiment Reproduction
 
 ### Evaluate
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1MYmKte_denL7bBffHE1T8S_NGfINauLG#scrollTo=WLQ5yeSIojfw)
-
 ```
 python eval.py --is_local --data_path ./Data/DWC_v1
 ```
 
 ### Training
+
+```
+python train.py --split_type action_plus --is_local --config vanilla --pretrain --pretrain_epochs 30 --gpu_id 0
+```
+
+### Generate Pretrain Data
+
+```
+cd DataSyn
+python Fragment.py --save_path ./syn_data/fragments
+python Syn.py --save_path ./syn_data/data --fragments_path ./syn_data/fragments --sample_num 6830
+```

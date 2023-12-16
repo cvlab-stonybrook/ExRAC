@@ -32,14 +32,23 @@ def gaussian_kernel(kernel_size, sigma = 1):
 
 
 # action 920 subject 819
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('--save_path', type=str, default='./syn_data/data')
+parser.add_argument('--fragments_path', type=str, default='./syn_data/fragments')
+parser.add_argument('--sample_num', type=int, default=6830)
+args = parser.parse_args()
+syn_save_path = args.save_path
+framents_path = args.fragments_path
+sample_num = args.sample_num
+
 generate_sample_idx = 0
-split_type = 'extreme'
-save_path = 'F:\\DWC_v1\\syn_data\\{}\\fragments'.format(split_type)
-syn_data_save_path = 'F:\\DWC_v1\\syn_data\\{}\\data'.format(split_type)
+save_path = framents_path
+syn_data_save_path = syn_save_path
 os.makedirs(syn_data_save_path, exist_ok=True)
 num_fragment = len(os.listdir(save_path))
 print('Fragment Num: ', num_fragment)
-Samples = 9470
+Samples = sample_num
 annotation = {}
 import random
 for sample_idx in tqdm.tqdm(range(3 * Samples)):

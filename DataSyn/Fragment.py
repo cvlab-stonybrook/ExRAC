@@ -10,7 +10,7 @@ import torch.nn.functional as F
 from torchaudio import transforms
 from Utils.soft_dtw_cuda import SoftDTW
 from numba import NumbaPerformanceWarning
-from Utils.ExemplarDetect import max_product_cy
+from Models.Feature.ExemplarDetect import max_product_cy
 from Models.Feature.ExEnc import fusion_block, MultiScaleModule
 from Models.Feature.bc_resnet_model import BcResNetModel, N_CLASS
 
@@ -65,10 +65,7 @@ class FragmentExtracter(nn.Module):
             dropout=0.1,
             use_subspectral=True,
         )
-        if os.path.exists('../Models/Feature/best_model.pth'):
-            self.audio_model.load_state_dict(torch.load('../Models/Feature/best_model.pth'))
-        else:
-            self.audio_model.load_state_dict(torch.load('./best_model.pth'))
+        self.audio_model.load_state_dict(torch.load('../Checkpoints/AudioPretrain.pth'))
         self.audio_model.to(self.device)
 
     def pairwise_minus_l2_distance(self, x, y):
@@ -216,11 +213,24 @@ import tqdm
 from Dataset.DWC import DWC
 from Utils.config import load_cfg
 # Subject
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('--save_path', type=str, default='./syn_data/fragments')
+args = parser.parse_args()
+save_path = args.save_path
+if not os.path.exists(save_path):
+    os.makedirs(save_path)
+if torch.cuda.is_available():
+    device = "cuda:0"
+else:
+    device = 'cpu'
+
+
 cfg = load_cfg('../Config/vanilla.yaml')
-cfg.Dataset.split_type = 'extreme'
-enc = FragmentExtracter(cfg, 'cuda:0', 'F:\\DWC_v1\\syn_data\\{}\\fragments'.format(cfg.Dataset.split_type))
-os.makedirs('F:\\DWC_v1\\syn_data\\{}\\fragments'.format(cfg.Dataset.split_type), exist_ok=True)
-enc.to('cuda:0')
+cfg.Is_local = True
+cfg.DWC.local_data_path = '../Data/DWC_v1/real_data'
+enc = FragmentExtracter(cfg, device, save_path)
+enc.to(device)
 dataset = DWC(cfg, 'train')
 fragment_num = 0
 # Save Fragments
