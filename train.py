@@ -120,10 +120,8 @@ criterion = build_criterion(cfg)
 
 best_MAE = 1e6
 best_RMSE = 1e6
-best_OBO = 0
 test_MAE = 1e6
 test_RMSE = 1e6
-test_OBO = 0
 if pretrain:
     assert pretrain_loader is not None, 'Pretrain loader is None, please check the config file.'
     pretrainEpoch = args.pretrain_epochs
@@ -154,14 +152,12 @@ if pretrain:
         # Verbose training
         train_mae = pretrain_Result[pretrain_epoch + 1]['train']['MAE']
         train_rmse = pretrain_Result[pretrain_epoch + 1]['train']['RMSE']
-        train_obo = pretrain_Result[pretrain_epoch + 1]['train']['OBO']
         train_count_loss = pretrain_Result[pretrain_epoch + 1]['train']['CountLoss']
         train_density_loss = pretrain_Result[pretrain_epoch + 1]['train']['DensityLoss']
         pesudo_loss = pretrain_Result[pretrain_epoch + 1]['train']['PesudoLoss']
         distance_loss = pretrain_Result[pretrain_epoch + 1]['train']['distance_loss']
         print('PreTrain MAE: ', train_mae)
         print('PreTrain RMSE: ', train_rmse)
-        print('PreTrain OBO: ', train_obo)
         print('PreTrain count Loss: ', train_count_loss)
         print('PreTrain density Loss: ', train_density_loss)
         print('PreTrain pesudo Loss: ', pesudo_loss)
@@ -189,13 +185,11 @@ for epoch in range(Epoch):
     # Verbose training
     train_mae = Result[epoch + 1]['train']['MAE']
     train_rmse = Result[epoch + 1]['train']['RMSE']
-    train_obo = Result[epoch + 1]['train']['OBO']
     train_count_loss = Result[epoch + 1]['train']['CountLoss']
     train_density_loss = Result[epoch + 1]['train']['DensityLoss']
     distance_loss = Result[epoch + 1]['train']['distance_loss']
     print('Train MAE: ', train_mae)
     print('Train RMSE: ', train_rmse)
-    print('Train OBO: ', train_obo)
     print('Train count Loss: ', train_count_loss)
     print('Train density Loss: ', train_density_loss)
     print('Train distance Loss: ', distance_loss)
@@ -215,20 +209,17 @@ for epoch in range(Epoch):
     # Verbose val
     val_mae = Result[epoch + 1]['val']['MAE']
     val_rmse = Result[epoch + 1]['val']['RMSE']
-    val_obo = Result[epoch + 1]['val']['OBO']
     val_count_loss = Result[epoch + 1]['val']['CountLoss']
     val_density_loss = Result[epoch + 1]['val']['DensityLoss']
 
     print('Val MAE: ', val_mae)
     print('Val RMSE: ', val_rmse)
-    print('Val OBO: ', val_obo)
     print('Val count Loss: ', val_count_loss)
     print('Val density Loss: ', val_density_loss)
 
     if val_mae < best_MAE:
         best_MAE = val_mae
         best_RMSE = val_rmse
-        best_OBO = val_obo
         # This shoould be the test
         # However currently we don't have enough data to do it
         # So we simply pass
@@ -245,19 +236,16 @@ for epoch in range(Epoch):
 
         test_mae = Result[epoch + 1]['test']['MAE']
         test_rmse = Result[epoch + 1]['test']['RMSE']
-        test_obo = Result[epoch + 1]['test']['OBO']
         test_count_loss = Result[epoch + 1]['test']['CountLoss']
         test_density_loss = Result[epoch + 1]['test']['DensityLoss']
 
         print('Test MAE: ', test_mae)
         print('Test RMSE: ', test_rmse)
-        print('Test OBO: ', test_obo)
         print('Test count Loss: ', test_count_loss)
         print('Test density Loss: ', test_density_loss)
 
         test_MAE = test_mae
         test_RMSE = test_rmse
-        test_OBO = test_obo
         if args.save_model:
             torch.save(model.state_dict(), best_model_save_dir)
 
@@ -265,23 +253,18 @@ for epoch in range(Epoch):
         torch.save(model.state_dict(), last_model_save_dir)
     Result[epoch + 1]['best val']['MAE'] = best_MAE
     Result[epoch + 1]['best val']['RMSE'] = best_RMSE
-    Result[epoch + 1]['best val']['OBO'] = best_OBO
     scheduler.step()
 print('Final Best Val MAE:', best_MAE)
 print('Final Best Val RMSE:', best_RMSE)
-print('Final Best Val OBO:', best_OBO)
 print('Final Test MAE:', test_MAE)
 print('Final Test RMSE:', test_RMSE)
-print('Final Test OBO:', test_OBO)
 Result['Final Result'] = {}
 Result['Final Result']['best val'] = {}
 Result['Final Result']['best val']['MAE'] = best_MAE
 Result['Final Result']['best val']['RMSE'] = best_RMSE
-Result['Final Result']['best val']['OBO'] = best_OBO
 Result['Final Result']['test'] = {}
 Result['Final Result']['test']['MAE'] = test_MAE
 Result['Final Result']['test']['RMSE'] = test_RMSE
-Result['Final Result']['test']['OBO'] = test_OBO
 result_conf = OmegaConf.create(Result)
 Result_save_path = os.path.join(log_save_dir, 'Result.yaml')
 save_cfg(result_conf, Result_save_path)
