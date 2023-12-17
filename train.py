@@ -124,13 +124,10 @@ best_OBO = 0
 test_MAE = 1e6
 test_RMSE = 1e6
 test_OBO = 0
-test_Partb_MAE = 1e6
-test_Partb_RMSE = 1e6
-test_Partb_OBO = 0
 if pretrain:
     assert pretrain_loader is not None, 'Pretrain loader is None, please check the config file.'
     pretrainEpoch = args.pretrain_epochs
-    from Builder.build_optimizer import combine_loss, density_loss, count_loss
+    from Builder.build_optimizer import density_loss, count_loss
     pretrain_criterion = count_loss()
     pesudo_criterion = density_loss()
     for pretrain_epoch in range(pretrainEpoch):
@@ -175,7 +172,6 @@ for epoch in range(Epoch):
     Result[epoch + 1]['train'] = {}
     Result[epoch + 1]['test'] = {}
     Result[epoch + 1]['val'] = {}
-    Result[epoch + 1]['partb_eval'] = {}
     Result[epoch + 1]['best val'] = {}
     model.train()
     print('#################################################################')
@@ -277,9 +273,6 @@ print('Final Best Val OBO:', best_OBO)
 print('Final Test MAE:', test_MAE)
 print('Final Test RMSE:', test_RMSE)
 print('Final Test OBO:', test_OBO)
-print('Final PartB Test MAE:', test_Partb_MAE)
-print('Final PartB Test RMSE:', test_Partb_RMSE)
-print('Final PartB Test OBO:', test_Partb_OBO)
 Result['Final Result'] = {}
 Result['Final Result']['best val'] = {}
 Result['Final Result']['best val']['MAE'] = best_MAE
@@ -289,10 +282,6 @@ Result['Final Result']['test'] = {}
 Result['Final Result']['test']['MAE'] = test_MAE
 Result['Final Result']['test']['RMSE'] = test_RMSE
 Result['Final Result']['test']['OBO'] = test_OBO
-Result['Final Result']['test_partB'] = {}
-Result['Final Result']['test_partB']['MAE'] = test_Partb_MAE
-Result['Final Result']['test_partB']['RMSE'] = test_Partb_RMSE
-Result['Final Result']['test_partB']['OBO'] = test_Partb_OBO
 result_conf = OmegaConf.create(Result)
 Result_save_path = os.path.join(log_save_dir, 'Result.yaml')
 save_cfg(result_conf, Result_save_path)
