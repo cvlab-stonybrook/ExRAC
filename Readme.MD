@@ -1,6 +1,9 @@
 # **[AAAI24] Count What You Want: Exemplar Identification and Few-shot Counting of Human Actions in the Wild**
 
 [<span style="font-size: larger;">Project Page</span>](https://yifehuang97.github.io/ExRAC.github.io/)
+[<span style="font-size: larger;">Arxiv</span>](https://arxiv.org/abs/2312.17330)
+
+
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1MYmKte_denL7bBffHE1T8S_NGfINauLG#scrollTo=WLQ5yeSIojfw)
 
