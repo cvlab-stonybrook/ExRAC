@@ -49,7 +49,8 @@ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download
 [DWC_v1](https://drive.google.com/file/d/1P6CpwZszTtGOMQx0IaPu1VXR1GeboI7O/view?usp=drive_link)
 
 ### Data Statistics
-![Data Statistics](./Img/Data.jpg)
+<img src="./Img/Data.jpg" alt="Data Statistics" width="400" height="400"/>
+
 
 
 ## Train and Eval
